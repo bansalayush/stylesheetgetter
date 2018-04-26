@@ -1,0 +1,43 @@
+{
+  "name": "stylesheetgetter",
+  "displayName": "stylesheetgetter",
+  "description": "separates inline styles into stylesheet",
+  "version": "0.0.2",
+  "publisher": "devscor",
+  "engines": {
+    "vscode": "^1.22.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:extension.stylesheetget"],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.stylesheetget",
+        "title": "stylesheetget"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node ./node_modules/vscode/bin/compile ",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.0.0-beta.42",
+    "babel-generator": "^6.26.1",
+    "babel-traverse": "^6.26.0",
+    "uuid": "^3.2.1",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "eslint": "^4.11.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "@babel/types": "^7.0.0-beta.42",
+    "babel-generator": "^6.26.1",
+    "babel-traverse": "^6.26.0",
+    "uuid": "^3.2.1"
+  }
+}
