@@ -7,6 +7,9 @@
   "engines": {
     "vscode": "^1.22.0"
   },
+  "repository": {
+    "url": "https://github.com/bansalayush/stylesheetgetter"
+  },
   "categories": ["Other"],
   "activationEvents": ["onCommand:extension.stylesheetget"],
   "main": "./extension",
