@@ -1,6 +1,6 @@
 # vs-code stylesheetgetter
 
-![]("./stylesheetextensionsGIF2")
+![Demo]('./stylesheetextensionsGIF2.gif)
 
 Separates inline styles from react native and generates a stylesheet constant
 
