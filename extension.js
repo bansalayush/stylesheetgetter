@@ -8,9 +8,6 @@ const extension = require('./core');
 function activate(context) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "stylesheetgetter" is now active!'
-  );
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
@@ -20,19 +17,22 @@ function activate(context) {
     function() {
       // The code you place here will be executed every time your command is executed
       const lineCount = vscode.window.activeTextEditor.document.lineCount;
-      console.log(lineCount);
       let code = vscode.window.activeTextEditor.document.getText();
-      console.log(code);
-      console.log('==============extension starts======================');
       const convertedCode = extension.codeConvert(code);
-      console.log(convertedCode);
-      console.log('============extension ends========================');
-      vscode.window.activeTextEditor.edit(editBuilder => {
-        editBuilder.replace(
-          new vscode.Range(0, 0, lineCount, 0),
-          convertedCode
-        );
-      });
+      if (convertedCode === 'Oops!! error parsing the tree') {
+        // error
+        // show a notification
+        console.log(convertedCode);
+      } else {
+        console.log(convertedCode);
+        // console.log('============extension ends========================');
+        vscode.window.activeTextEditor.edit(editBuilder => {
+          editBuilder.replace(
+            new vscode.Range(0, 0, lineCount, 0),
+            convertedCode
+          );
+        });
+      }
     }
   );
 
