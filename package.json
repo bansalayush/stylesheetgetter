@@ -10,7 +10,7 @@
   "repository": {
     "url": "https://github.com/bansalayush/stylesheetgetter"
   },
-  "categories": ["Other"],
+  "categories": ["Formatters", "Other", "Languages"],
   "activationEvents": ["onCommand:extension.stylesheetget"],
   "main": "./extension",
   "contributes": {
