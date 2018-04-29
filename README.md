@@ -1,5 +1,7 @@
 # vs-code stylesheetgetter
 
+![]("./stylesheetextensionsGIF2")
+
 Separates inline styles from react native and generates a stylesheet constant
 
 ## USEAGE
