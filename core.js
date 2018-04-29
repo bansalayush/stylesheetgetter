@@ -1,4 +1,4 @@
-const babelGenerator = require('node_modules/babel-generator/lib/index.js');
+const babelGenerator = require('./node_modules/babel-generator/lib/index');
 const babelTraverse = require('babel-traverse');
 const babelTypes = require('@babel/types');
 const uuidv1 = require('uuid/v1');
@@ -61,7 +61,7 @@ function generateAST(code) {
   try {
     ast = babylon.parse(code, options);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // return error;
     return 'Oops!! error parsing the tree';
   }
@@ -76,14 +76,14 @@ function isStyle(name) {
   return name === 'style';
 }
 var convertFunc = function convertCode(code) {
-  console.log('*********convertCode starts************');
+  // console.log('*********convertCode starts************');
   var returnCode = '';
-  console.log('before generating ast');
+  // console.log('before generating ast');
   var ast = generateAST(code);
-  console.log('AST GENERATED ');
+  // console.log('AST GENERATED ');
   if (ast === 'Oops!! error parsing the tree') {
     // console.log('after generating ast');
-    console.log('ERROR OCCURED WHILE GENERATING AST');
+    // console.log('ERROR OCCURED WHILE GENERATING AST');
     return ast;
   }
   var objectExpressionArray = []; // stores style object to put in stylesheet.create
@@ -93,33 +93,33 @@ var convertFunc = function convertCode(code) {
   var existingStyleSheetNode;
   var existingStyleSheetName = '';
   var existingStyleObjects = [];
-  console.log('**************TRAVERSING STARTS****************');
+  // console.log('**************TRAVERSING STARTS****************');
   babelTraverse.default(ast, {
     enter(path) {
       // finding pre-existing stylesheet
       // looking for expressions with stylesheet.create as RHS
       if (babelTypes.isVariableDeclaration(path.node)) {
-        console.log('variableDeclaration\n, ');
+        // console.log('variableDeclaration\n, ');
         if (babelTypes.isVariableDeclarator(path.node.declarations[0])) {
-          console.log('variableDeclarator < === >');
+          // console.log('variableDeclarator < === >');
           // getting variable name of existing stylesheet
           existingStyleSheetName = path.node.declarations[0].id.name;
-          console.log(existingStyleSheetName);
+          // console.log(existingStyleSheetName);
           if (babelTypes.isCallExpression(path.node.declarations[0].init)) {
-            console.log('callExpression < == >');
+            // console.log('callExpression < == >');
             if (
               babelTypes.isMemberExpression(
                 path.node.declarations[0].init.callee
               )
             ) {
-              console.log('memberExpression < == >');
+              // console.log('memberExpression < == >');
               if (
                 path.node.declarations[0].init.callee.object.name ===
                   'StyleSheet' &&
                 path.node.declarations[0].init.callee.property.name === 'create'
               ) {
                 existingStyleSheetNode = path;
-                console.log('stylesheet.create < == >');
+                // console.log('stylesheet.create < == >');
                 //getting existing style objects present in  stylesheet
                 existingStyleObjects =
                   path.node.declarations[0].init.arguments[0].properties;
@@ -134,7 +134,7 @@ var convertFunc = function convertCode(code) {
           // path to which changes will be made
           if (babelTypes.isJSXExpressionContainer(path.node.value)) {
             if (babelTypes.isObjectExpression(path.node.value.expression)) {
-              console.log('getting style={{}}');
+              // console.log('getting style={{}}');
               nodesToReplace.push(path);
               var styleName = 'a' + uuidv1();
               styleName = styleName.replace(/-/g, '');
@@ -179,7 +179,7 @@ var convertFunc = function convertCode(code) {
   } catch (error) {
     console.log(error);
   }
-  console.log('*********convertCode ends************');
+  // console.log('*********convertCode ends************');
   return returnCode;
 };
 
