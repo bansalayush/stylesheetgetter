@@ -4,12 +4,13 @@ Separates inline styles from react native and generates a stylesheet constant
 
 ## USEAGE
 
-Open your react native code and follow these steps
+Open your react native code and follow these steps :
 
 Open the command palette
-** macos**
+**macos**
 `CMD`+`SHIFT`+`P` -> stylesheetget
-** Windows/Linux **
+
+**Windows/Linux**
 `Ctrl` + `Shift` + `P` -> stylesheetget
 
 Go to View → Command Palette
@@ -73,10 +74,12 @@ export default class Example extends React.Component {
 Installation
 In VS Code window:
 
-_macos_
+**macos**
+
 `CMD`+`SHIFT`+`X` -> stylesheetgetter
 
-_Windows/Linux_
+**Windows/Linux**
+
 `Ctrl` + `Shift` + `X` -> stylesheetgetter
 
 And click on install :)
