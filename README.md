@@ -73,9 +73,10 @@ export default class Example extends React.Component {
 Installation
 In VS Code window:
 
-** macos**
+_macos_
 `CMD`+`SHIFT`+`X` -> stylesheetgetter
-** Windows/Linux **
+
+_Windows/Linux_
 `Ctrl` + `Shift` + `X` -> stylesheetgetter
 
 And click on install :)
