@@ -1,4 +1,4 @@
-#vs-code stylesheetgetter
+# vs-code stylesheetgetter
 
 This plugin separates inline styles in your react native code and creates a stylesheet .
 
