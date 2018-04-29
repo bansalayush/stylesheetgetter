@@ -2,7 +2,7 @@
   "name": "stylesheetgetter",
   "displayName": "stylesheetgetter",
   "description": "separates inline styles into stylesheet",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publisher": "devscor",
   "engines": {
     "vscode": "^1.17.0"
