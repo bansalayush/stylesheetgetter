@@ -8,19 +8,22 @@ Open your react native code and follow these steps :
 
 Open the command palette
 **macos**
+
 `CMD`+`SHIFT`+`P` -> stylesheetget
 
 **Windows/Linux**
+
 `Ctrl` + `Shift` + `P` -> stylesheetget
 
 Go to View → Command Palette
+
 Type : stylesheetget
 
 Then you will see all the inline styles seperated (each with a separate identifier) and a stylesheet constant.
 
 ## Example
 
-## ** Source: **
+## Source:
 
 ```
 import React from "react";
