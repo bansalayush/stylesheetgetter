@@ -3,16 +3,41 @@ const babelTraverse = require('babel-traverse');
 const babelTypes = require('@babel/types');
 const uuidv1 = require('uuid/v1');
 const babylon = require('babylon');
-
 const options = {
   sourceType: 'module',
   plugins: [
-    // enable jsx syntax
+    'estree',
     'jsx',
-    'classProperties',
     'flow',
+    'flowComments',
+    'typescript',
     'doExpressions',
-    'objectRestSpread'
+    'objectRestSpread',
+    'decorators',
+    'classProperties',
+    'classPrivateProperties',
+    'classPrivateMethods',
+    'exportDefaultFrom',
+    'exportNamespaceFrom',
+    'asyncGenerators',
+    'functionBind',
+    'functionSent	',
+    'dynamicImport',
+    'numericSeparator',
+    'optionalChaining',
+    'importMeta',
+    'bigInt',
+    'optionalCatchBinding',
+    'throwExpressions',
+    'pipelineOperator',
+    'nullishCoalescingOperator'
+
+    // 'jsx',
+    // 'classProperties',
+    // 'flow',
+    // 'doExpressions',
+    // 'objectRestSpread',
+    // 'typescript'
   ]
 };
 function generateStyleSheet(styleNames, styleProperties, existingStyleObjects) {
@@ -61,7 +86,7 @@ function generateAST(code) {
   try {
     ast = babylon.parse(code, options);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     // return error;
     return 'Oops!! error parsing the tree';
   }
