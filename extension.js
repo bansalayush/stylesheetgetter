@@ -22,6 +22,7 @@ function activate(context) {
       if (convertedCode === 'Oops!! error parsing the tree') {
         // error
         // show a notification
+        vscode.window.showInformationMessage('Oops!! error parsing the tree');
         console.log(convertedCode);
       } else {
         console.log(convertedCode);
