@@ -20,10 +20,8 @@ function activate(context) {
       let code = vscode.window.activeTextEditor.document.getText();
       const convertedCode = extension.codeConvert(code);
       if (convertedCode === 'Oops!! error parsing the tree') {
-        // error
-        // show a notification
-        vscode.window.showInformationMessage('Oops!! error parsing the tree');
-        console.log(convertedCode);
+        // show error notification
+        vscode.window.showErrorMessage('Oops!! error parsing the tree');
       } else {
         console.log(convertedCode);
         // console.log('============extension ends========================');
