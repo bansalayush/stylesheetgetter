@@ -3,41 +3,17 @@ const babelTraverse = require('babel-traverse');
 const babelTypes = require('@babel/types');
 const uuidv1 = require('uuid/v1');
 const babylon = require('babylon');
+
 const options = {
   sourceType: 'module',
   plugins: [
-    'estree',
+    // enable jsx syntax
     'jsx',
+    'classProperties',
     'flow',
-    'flowComments',
-    'typescript',
     'doExpressions',
     'objectRestSpread',
-    'decorators',
-    'classProperties',
-    'classPrivateProperties',
-    'classPrivateMethods',
-    'exportDefaultFrom',
-    'exportNamespaceFrom',
-    'asyncGenerators',
-    'functionBind',
-    'functionSent	',
-    'dynamicImport',
-    'numericSeparator',
-    'optionalChaining',
-    'importMeta',
-    'bigInt',
-    'optionalCatchBinding',
-    'throwExpressions',
-    'pipelineOperator',
-    'nullishCoalescingOperator'
-
-    // 'jsx',
-    // 'classProperties',
-    // 'flow',
-    // 'doExpressions',
-    // 'objectRestSpread',
-    // 'typescript'
+    'typescript'
   ]
 };
 function generateStyleSheet(styleNames, styleProperties, existingStyleObjects) {
@@ -62,14 +38,6 @@ function generateStyleSheet(styleNames, styleProperties, existingStyleObjects) {
   ]);
 }
 
-// TODO: check type of propertyvalue to generate corresponding literal
-// function generateStylePropertyWithValue(propertyName, propertyValue) {
-//   return babelTypes.objectProperty(
-//     babelTypes.identifier(propertyName),
-//     babelTypes.numericLiteral(propertyValue)
-//   );
-// }
-
 function generateStyles(styleName) {
   return babelTypes.jsxAttribute(
     babelTypes.jsxIdentifier('style'),
@@ -86,7 +54,7 @@ function generateAST(code) {
   try {
     ast = babylon.parse(code, options);
   } catch (error) {
-    console.log(error);
+    console.log('[CORE ERROR]', error);
     // return error;
     return 'Oops!! error parsing the tree';
   }
@@ -116,7 +84,6 @@ var convertFunc = function convertCode(code) {
   var nodesToReplace = []; // style nodes to replace with styles.something
 
   var existingStyleSheetNode;
-  var existingStyleSheetName = '';
   var existingStyleObjects = [];
   // console.log('**************TRAVERSING STARTS****************');
   babelTraverse.default(ast, {
@@ -128,7 +95,7 @@ var convertFunc = function convertCode(code) {
         if (babelTypes.isVariableDeclarator(path.node.declarations[0])) {
           // console.log('variableDeclarator < === >');
           // getting variable name of existing stylesheet
-          existingStyleSheetName = path.node.declarations[0].id.name;
+          // existingStyleSheetName = path.node.declarations[0].id.name;
           // console.log(existingStyleSheetName);
           if (babelTypes.isCallExpression(path.node.declarations[0].init)) {
             // console.log('callExpression < == >');
@@ -159,9 +126,8 @@ var convertFunc = function convertCode(code) {
           // path to which changes will be made
           if (babelTypes.isJSXExpressionContainer(path.node.value)) {
             if (babelTypes.isObjectExpression(path.node.value.expression)) {
-              // console.log('getting style={{}}');
               nodesToReplace.push(path);
-              var styleName = 'a' + uuidv1();
+              var styleName = 'a' + uuidv1(); // assinging unique names
               styleName = styleName.replace(/-/g, '');
               styleNames.push(styleName);
               objectExpressionArray.push(path.node.value.expression);
@@ -171,10 +137,10 @@ var convertFunc = function convertCode(code) {
       }
     }
   });
-  console.log('**************TRAVERSING ENDS****************');
+  // console.log('**************TRAVERSING ENDS****************');
 
-  // generating Stylesheet
-  ////
+  /*** generating Stylesheet ***/
+
   // checking if we have pre-existing stylesheet or not
   if (objectExpressionArray.length > 0) {
     // merging existing stylesheet data with to be converted data
@@ -202,12 +168,10 @@ var convertFunc = function convertCode(code) {
     const output = babelGenerator.default(ast);
     returnCode = `${returnCode} \n${output.code}`;
   } catch (error) {
-    console.log(error);
+    console.log('[CORE ERROR]', error);
   }
   // console.log('*********convertCode ends************');
   return returnCode;
 };
 
 exports.codeConvert = convertFunc;
-
-// console.log(convertCode(test1));
